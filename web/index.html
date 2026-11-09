@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Умная теплица — Индивидуальный проект v2</title>
+  <link rel="stylesheet" href="style.css?v=4">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./vendor/three.module.js"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="scene"></div>
+  <div id="hint">🖱 Тяните мышью — осмотр · <b>WASD</b> — полёт · <b>Q/E</b> — вниз/вверх · <b>Shift</b> — ускорение · <b>H</b> — скрыть/показать интерфейс</div>
+
+  <div id="banner">
+    <span id="banner-icon">✅</span>
+    <span id="banner-title">НОРМА</span>
+    <span id="banner-desc">Все системы работают штатно</span>
+    <span id="banner-stats">Отклонено атак: 0</span>
+  </div>
+
+  <header>
+    <h1>🌱 Умная теплица</h1>
+    <span class="sub">Индивидуальный проект · версия 2</span>
+    <span id="status" class="badge ok">НОРМА</span>
+  </header>
+
+  <aside id="panel">
+    <section class="card">
+      <h2>Датчики</h2>
+      <div class="gauge">
+        <label>Температура</label>
+        <span id="temp-val">--</span>
+        <div class="bar"><i id="temp-bar"></i></div>
+      </div>
+      <div class="gauge">
+        <label>Влажность почвы</label>
+        <span id="hum-val">--</span>
+        <div class="bar"><i id="hum-bar"></i></div>
+      </div>
+      <canvas id="chart" width="264" height="56"></canvas>
+      <canvas id="bars" width="264" height="72"></canvas>
+    </section>
+
+    <section class="card">
+      <h2>Демонстрация</h2>
+      <button id="btn-attack" class="btn danger">▶ Запустить атаку</button>
+      <button id="btn-defend" class="btn safe">🛡 Включить защиту</button>
+      <button id="btn-auto" class="btn">🎬 Авто-демо</button>
+      <button id="btn-csv" class="btn">⬇ Экспорт журнала (CSV)</button>
+      <button id="btn-tour" class="btn">🚁 Тур по ферме</button>
+    </section>
+
+    <section class="card">
+      <h2>Ручное управление</h2>
+      <button id="btn-pump" class="btn">💧 Полив: ВЫКЛ</button>
+      <button id="btn-heater" class="btn">🔥 Обогрев: 0%</button>
+    </section>
+
+    <section class="card">
+      <h2>Журнал событий</h2>
+      <ul id="log"></ul>
+    </section>
+  </aside>
+
+  <div id="hacker-tip">🎭 Хакер внедряет поддельную команду!</div>
+
+  <script type="module" src="app.js?v=4"></script>
+</body>
+</html>

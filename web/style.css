@@ -47,7 +47,7 @@ body {
 }
 
 #scene { position: fixed; inset: 0; }
-#scene canvas { display: block; }
+#scene canvas { display: block; touch-action: none; }
 
 header {
   position: fixed; top: 16px; left: 20px;
@@ -138,6 +138,8 @@ h1 { font-size: 20px; font-weight: 700; }
 }
 #hint.faded { opacity: 0; }
 
+#btn-menu { display: none; }
+
 /* --- cinematic mode: hide all widgets, toggle with H key --- */
 
 body.cinematic #panel,
@@ -149,6 +151,44 @@ body.cinematic #hacker-tip {
 }
 
 @media (max-width: 720px) {
-  #panel { width: 240px; }
+  header { display: none; }
   #hint { display: none; }
+
+  #panel {
+    width: min(300px, 88vw);
+    transform: translateX(105%);
+    transition: transform 0.3s ease;
+  }
+  body.panel-open #panel { transform: none; }
+
+  #btn-menu {
+    display: block;
+    position: fixed;
+    top: calc(10px + env(safe-area-inset-top));
+    right: calc(10px + env(safe-area-inset-right));
+    width: auto;
+    padding: 8px 14px;
+    margin: 0;
+    font-size: 15px;
+    z-index: 25;
+    background: rgba(17, 25, 40, 0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+  }
+
+  #banner {
+    top: env(safe-area-inset-top);
+    width: 94%;
+    padding: 8px 14px;
+    gap: 8px;
+    font-size: 12px;
+  }
+  #banner-icon { font-size: 18px; }
+  #banner-title { font-size: 15px; }
+  #banner-desc { font-size: 11px; }
+}
+
+@media (max-width: 480px) {
+  #banner-desc,
+  #banner-stats { display: none; }
 }

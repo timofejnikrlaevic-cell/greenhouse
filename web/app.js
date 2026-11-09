@@ -120,6 +120,7 @@ function toggleCinema() {
 addEventListener('keydown', (e) => {
   if (e.code === 'KeyH' && !e.repeat) toggleCinema();
 });
+$('btn-menu').onclick = () => document.body.classList.toggle('panel-open');
 $('btn-defend').onclick = () => send({ type: 'mode', mode: state.mode === 'defended' ? 'normal' : 'defended' });
 $('btn-pump').onclick = () => send({ type: 'command', action: 'pump', value: !state.pump });
 $('btn-heater').onclick = () => send({ type: 'command', action: 'heater', value: state.heater >= 100 ? 0 : state.heater + 50 });
@@ -278,9 +279,10 @@ const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 30
 camera.position.set(26, 14, 30);
 camera.lookAt(0, 2, 0);
 
+const isMobile = matchMedia('(max-width: 720px)').matches;
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(innerWidth, innerHeight);
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setPixelRatio(Math.min(devicePixelRatio, isMobile ? 1.5 : 2));
 renderer.shadowMap.enabled = true;
 $('scene').appendChild(renderer.domElement);
 
@@ -288,7 +290,7 @@ scene.add(new THREE.HemisphereLight(0xcfe6ff, 0x2c4a22, 0.95));
 const sun = new THREE.DirectionalLight(0xfff2d8, 1.2);
 sun.position.set(30, 40, 20);
 sun.castShadow = true;
-sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.mapSize.set(isMobile ? 1024 : 2048, isMobile ? 1024 : 2048);
 sun.shadow.camera.left = sun.shadow.camera.bottom = -45;
 sun.shadow.camera.right = sun.shadow.camera.top = 45;
 sun.shadow.camera.updateProjectionMatrix();
@@ -568,6 +570,7 @@ const look = { yaw: 0.72, pitch: 0.25 };
 let dragging = false, lastX = 0, lastY = 0;
 
 renderer.domElement.addEventListener('pointerdown', (e) => {
+  document.body.classList.remove('panel-open');
   dragging = true; lastX = e.clientX; lastY = e.clientY;
 });
 addEventListener('pointerup', () => { dragging = false; });
